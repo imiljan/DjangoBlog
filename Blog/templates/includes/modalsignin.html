@@ -1,10 +1,11 @@
+{% load widget_tweaks %}
 <!-- Modal sign in form -->
-<form id="signInForm" action="" method="POST">
+<form id="signInForm" action="{% url 'signin' %}" method="POST">
+    {% csrf_token %}
     <div id="signInWindow" class="container">
         <!-- Modal -->
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
@@ -13,21 +14,32 @@
                     </div>
                     <div class="modal-body">
 
-                        <p class="sessionFlash">Test</p>
+                        {% if messages %}
+                            <input id="message" type="hidden" value="true">
+                            {% for message in messages %}
+                            <p class="sessionFlash">{{ message }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <input id="message" type="hidden" value="false">
+                        {% endif %}
+
+
                         <p class="labelCustom">Username:</p>
-                        <input id="username" type="text" class="form-control" name="username" required>
+                        {% render_field form2.username class="form-control" %}
                         <br>
                         <p class="labelCustom">Password:</p>
-                        <input id="password" type="password" class="form-control" name="password" required>
+                        {% render_field form2.password class="form-control" %}
+
                     </div>
                     <div class="modal-footer form-group">
                         <button id="signInBtn" class="btn btn-primary pull-left" type="submit">Sign in</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
 </form>
+
+<script ></script>
+
