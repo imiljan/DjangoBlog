@@ -14,10 +14,10 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul id="navBarList" class="nav navbar-nav">
                 <li>
-                    <a href="#">Posts</a>
+                    <a href="{% url 'posts' %}">Posts</a>
                 </li>
                 <li>
-                    <a href="#">Users</a>
+                    <a href="{% url 'users' %}">Users</a>
                 </li>
                 <li>
                     <form action="" class="navbar-form" role="search">
@@ -33,9 +33,16 @@
                 </li>
             </ul>
             <ul id="rightNavList" class="nav navbar-nav pull-right">
+            {% if not user.is_authenticated %}
                 <li>
                     <a href="#" data-toggle="modal" data-target="#myModal">Sign In</a>
                 </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'logout' %}" style="display: inline-block;">Log out</a>
+                    <a href="{{ user.id }}" style="display: inline-block;"><img id="profilePic" class="img-circle" src="{{ user.userdetails.image }}" alt="avatar"></a>
+                </li>
+            {% endif %}
             </ul>
         </div>
     </div>

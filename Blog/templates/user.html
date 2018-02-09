@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div id="contentProfile">
+        <div class="row">
+            <div id="profileImg" class="col-sm-4 text-center">
+                <img id="profile-img" src="{{ user.userdetails.image }}" class="img-circle" alt="man">
+                {% if user.is_authenticated and user.pk == pk %}
+                <a id="modal-link" href="#" data-toggle="modal" data-target="#modalEdit">Edit profile</a>
+                <br>
+                {% else %}
+                <p style="color:black;">{{ user.username }}</p>
+                {% endif %}
+            </div>
+            <div id="nameAndBio" class="col-sm-4">
+                <div class="">
+                    <h2 style="color: black;">{{ user.first_name }}&nbsp{{ user.last_name }}</h2>
+                    <p style="color: black;">
+                        {{ user.bio }}
+                    </p>
+                    <p style="color: green;">{{ user.email }}</p>
+                </div>
+            </div>
+            <div id="userStats" class="col-sm-4 container text-center">
+                <div class="likes text-center">
+                    <div class="count">{{ posts.count }}</div>
+                    <div>posts</div>
+                </div>
+                <div class="likes text-center">
+                    <div class="count">{{ user.noOfLikes }}</div>
+                    <div>likes</div>
+                </div>
+                <div class="comments text-center">
+                    <div class="count">{{ user.noOfComments }}</div>
+                    <div>comments</div>
+                </div>
+                <div class="views text-center">
+                    <div class="count">{{ user.noOfViews }}</div>
+                    <div>views</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="posts" class="container">
+            {% if user.is_authenticated and user.pk == pk %}
+            <div class="container">
+                <a href="#"><img id="plus" class="img-circle" src="{% static 'img/plus.png' %}" alt="plus"></a>
+            </div>
+            {% endif %}
+            {% for post in posts %}
+            <div class="post">
+                <div class="postStats container ">
+                    <div class="likes text-center">
+                        <div class="count">{{ post.likes }}</div>
+                        <div>likes</div>
+                    </div>
+                    <div class="comments text-center">
+                        <div class="count">{{ post.noOfComments }}</div>
+                        <div>comments</div>
+                    </div>
+                    <div class="views text-center">
+                        <div class="count">{{ post.views }}</div>
+                        <div>views</div>
+                    </div>
+                </div>
+                <div class="postTitleDiv">
+                    <a href="{% url 'post' post.pk %}"><h3>{{ post.title }}</h3></a>
+                    <div class="dateCreatedDiv pull-right">
+                        <p style="color: black;">Date created: {{ post.created_at }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    {% if user.is_authenticated and user.pk == pk %}
+    <!-- Edit profile modal -->
+    <form id="editProfileModal" action="" method="POST" enctype="multipart/form-data">
+        {{ csrf_token }}
+        <div id="editProfileWindow" class="container">
+            <!-- Modal -->
+            <div id="modalEdit" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit profile</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p style="color: grey;">First name:</p>
+                            <input id="first-name" type="text" class="form-control" name="firstname" value="{{ user.first_name }}" required>
+                            <br>
+                            <p style="color: grey;">Last name:</p>
+                            <input id="last-name" type="text" class="form-control" name="lastname" value="{{ user.first_name }}" required>
+                            <br>
+                            <p style="color: grey;">Bio:</p>
+                            <textarea name="bio" id="bio" cols="67" rows="5">{{ user.bio }}</textarea>
+                            <br>
+                            <p style="color: grey;">Profile picture: (for best UX upload a square picture)</p>
+                            <input id="pictureUpld" type="file" class="form-control" name="file">
+                            <p style="color: grey;">Password:</p>
+                            <input id="password" type="password" class="form-control" name="password" required>
+                            <br>
+                            <p style="color: grey;">Confirm password:</p>
+                            <input id="passwordConfirm" type="password" class="form-control" name="passwordConfirm" required>
+                        </div>
+                        <div class="modal-footer form-group">
+                            <button id="submitBtn" class="btn btn-primary pull-left" type="submit">Submit</button>
+                            <a href="#">Delete profile</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+
+
+{% endblock content %}

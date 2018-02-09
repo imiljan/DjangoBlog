@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="postTitleDiv">
-                    <a href="#"><h3>{{ post.title }}</h3></a>
+                    <a href="{% url 'post' post.pk %}"><h3>{{ post.title }}</h3></a>
                     <div class="dateCreatedDiv pull-right">
                         <p>Date created: {{ post.created_at }}</p>
                     </div>

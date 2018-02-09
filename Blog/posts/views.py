@@ -24,3 +24,7 @@ def index(request):
 def post(request, pk):
     post = Post.objects.get(pk=pk)
     return render(request, 'post.html', {'title': post.title, 'post': post})
+
+
+def posts(request):
+    return render(request, 'posts.html', {'posts': Post.objects.all()})

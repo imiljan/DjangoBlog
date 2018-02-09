@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% include 'includes/signuprow.html' %}
+    {% if not user.is_authenticated %}
+        {% include 'includes/signuprow.html' %}
+    {% else %}
+        {% include 'includes/logobanner.html' %}
+    {% endif %}
     {% include 'includes/poststabs.html' %}
+
 {% endblock %}

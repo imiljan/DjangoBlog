@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from posts.models import Post
 from users.forms import SignInForm
 
 
@@ -21,4 +22,11 @@ def signin(request):
         return redirect('index')
 
 
+def users(request):
+    users = User.objects.all()
+    return render(request, 'users.html', {'users': users})
 
+
+def user(request, pk):
+    user = User.objects.get(pk=pk)
+    posts = Post.objects.filter(user_id=pk)
