@@ -1,0 +1,350 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    font: 400 15px/1.8 Lato, sans-serif;
+    background-image: url("../img/diagmonds-light.png");
+    background-repeat: repeat;
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+    padding-bottom: 10em;
+}
+
+#formDiv {
+    padding-right: 2.5em;
+    padding-left: 2.5em;
+}
+
+#signUpBtn {
+    width: 40%;
+}
+
+.modal-header {
+    background-color: darkcyan;
+    background-image: url("../img/pattern.svg");
+    border-radius: 10px 10px 0px 0px;
+    color: rgb(227, 232, 233);
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+#signUpBtnDiv {
+    width: 85%;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#signUpBtnDiv input{
+    display: inline;
+}
+
+#signUpBtnDiv p{
+    width: 60%;
+}
+
+#row1 {
+    padding-top: 10em;
+    background-color: darkcyan;
+    background-image: url("../img/pattern.svg");
+}
+
+#row {
+    padding-top: 5em;
+    margin-bottom: 3em;
+}
+
+.container-fluid {
+    padding-left: 9em;
+    padding-right: 9em;
+    background-color: #62e0da;
+    background-image: url("../img/textured-stripes.png");
+    background-repeat: repeat-y;
+    background-repeat: repeat-x;
+}
+
+h2, p {
+    color: white;
+}
+
+#row h2, #row p {
+    color: black;
+}
+
+#row h2 {
+    padding-bottom: 1em;
+    border-bottom: solid 1px grey;
+    width: 70%; 
+    display: inline-block;
+}
+
+#owner-of-post {
+    display: inline-block; 
+    width: 25%;
+}
+
+#owner-of-post span {
+    display: inline-block;
+}
+
+.post-text {
+    border-bottom: solid 1px grey;
+}
+
+#stats {
+    border-bottom: solid 1px grey; 
+    width: 100%;
+}
+
+#stats p {
+    color: grey; 
+    margin: 0 1em;
+}
+
+#stats img {
+    height: 3em; 
+    width: 3em;
+}
+
+#comments {
+    margin-top: 3em; 
+    width: 100%;
+}
+
+.comment.container {
+    border-bottom: solid 1px black; 
+    width: 100%; 
+    margin-bottom: 2em;
+}
+
+.user {
+    display: inline-block; 
+    margin-bottom: 2em;
+}
+
+.user img {
+    width: 5em; 
+    height: 5em;
+}
+
+.user p {
+    width: 8em;
+}
+
+.comment-text {
+    display: inline-block; 
+    border-left: solid 1px grey; 
+    padding-left: 1em;
+}
+
+#comment-form {
+    width: 100%; 
+    border-top: solid 1px black; 
+    padding-top: 2em;
+}
+
+#comment-form textarea {
+    width: 100%;
+}
+
+.tab-content p {
+    color: black;
+}
+
+.tab-content h2 {
+    color: black;
+}
+
+#posts a {
+    color: black;
+}
+
+#posts h2 {
+    color: black;
+}
+
+#posts {
+    padding-top: 5em;
+}
+
+#global-nav {
+    border-bottom: 0px;
+    border-top: solid 4px darkcyan;
+}
+
+.post {
+    margin-top: 20px; 
+    border-bottom: solid 1px grey;
+}
+
+.postStats {
+    display: inline-block;
+    width: 18em;
+}
+
+.likes {
+    width: 5em; 
+    border: solid 1px; 
+    display: inline-block;
+}
+
+.comments {
+    width: 5em; 
+    border: solid 1px; 
+    display: inline-block;
+}
+
+.views {
+    width: 5em; 
+    border: solid 1px; 
+    display: inline-block;
+}
+
+.postTitleDiv {
+    width: 70%; 
+    display: inline-block;
+}
+
+.postTitleDiv h3 {
+    margin-top: 0;
+}
+
+footer {
+    background-color: #62e0da;
+    background-image: url("../img/textured-stripes.png");
+    color: #050505;
+    padding: 32px;
+    width: 100%;
+    margin-bottom: 0px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 10em;
+}
+
+footer p {
+    color: #3b3838;
+}
+
+footer a {
+    color: #e4dede;
+}
+
+footer a:hover {
+    color: #777;
+    text-decoration: none;
+}
+
+#instaicon {
+    height: 5em;
+    width: 5em;
+}
+
+#fbicon {
+    height: 4em;
+    width: 4em;
+}
+
+#profilePic {
+    width: 2em;
+    height: 2em;
+}
+
+#plus:hover {
+    background-color: #a1979731;
+}
+
+#plus {
+    width: 2em; 
+    height: 2em;
+}
+
+#users-container {
+    padding-top: 6em; 
+    margin: 0 auto;
+}
+
+.navbar-collapse.collapse.in {
+    background-color: #62e0da;
+    background-image: url("../img/textured-stripes.png");
+}
+
+#createPostContainer {
+    padding-top: 5em;
+}
+
+.sessionFlash {
+    color: red;
+}
+
+.labelCustom {
+    color: grey;
+}
+
+#owner-img {
+    height: 128px;
+    width: 128px
+}
+
+#user-img {
+    height: 128px; 
+    width: 128px;
+}
+
+#contentProfile {
+    padding-top: 5em;
+}
+
+#profile-img {
+    width: 15em; 
+    height: 15em; 
+    display: inline-block;
+}
+
+#modal-link {
+    display: inline-block; 
+    width: 100%;
+}
+
+#userStats {
+    padding: 10em 0;
+}
+
+@media (max-width: 780px) {
+
+    .container-fluid {
+        padding-right: 0;
+        padding-left: 1em;
+    }
+
+    .navbar-brand {
+        display: none;
+    }
+
+    #rightNavList {
+        float: left !important;
+    }
+
+    .postStats {
+        display: none;
+    }
+
+    .likes {
+        width: 1em;
+    }
+    
+    .comments {
+        width: 1em; 
+    }
+    
+    .views {
+        width: 1em; 
+    }
+
+}
+

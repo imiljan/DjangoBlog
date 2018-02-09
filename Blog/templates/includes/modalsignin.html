@@ -1,0 +1,33 @@
+<!-- Modal sign in form -->
+<form id="signInForm" action="" method="POST">
+    <div id="signInWindow" class="container">
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Sign in</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <p class="sessionFlash">Test</p>
+                        <p class="labelCustom">Username:</p>
+                        <input id="username" type="text" class="form-control" name="username" required>
+                        <br>
+                        <p class="labelCustom">Password:</p>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="modal-footer form-group">
+                        <button id="signInBtn" class="btn btn-primary pull-left" type="submit">Sign in</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

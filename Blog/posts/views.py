@@ -4,5 +4,5 @@ from .models import Post
 
 
 def home(request):
-    post = Post.objects.all()
-    return HttpResponse(post)
+    title = 'Test'
+    return render(request, 'index.html', {'title': title})
