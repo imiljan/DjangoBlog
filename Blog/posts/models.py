@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# admin qwert123
 
+# admin qwert123
 class Post(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField()
