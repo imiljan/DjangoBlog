@@ -9,6 +9,9 @@ class UserDetails(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     image = models.URLField(blank=True)
 
+    def __str__(self):
+        return 'Username: {} \n Bio: {}'.format(self.user.username, self.bio)
+
 
 @receiver(post_save, sender=User)
 def create_user_details(sender, instance, created, **kwargs):
@@ -17,5 +20,5 @@ def create_user_details(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=User)
-def save_user_details(sender, instace, **kwargs):
-    instace.userdetails.save()
+def save_user_details(sender, instance, **kwargs):
+    instance.userdetails.save()

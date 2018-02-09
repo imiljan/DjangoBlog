@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div id="row" class="container">
+        <h2>{{ post.title }}</h2>
+        <div id="owner-of-post" class="text-center pull-right">
+            <a href="#"><img id="owner-img" src="{{ user.userdetails.image }}" class="img-circle" alt="user"></a>
+            <br>
+            <a href="#"><span>{{ user.first_name }} {{ user.last_name }}</span></a>
+        </div>
+        <br>
+        <div class="post-text">{{ post.body }}</div>
+        <div id="stats" class="container">
+            <p class="pull-left">
+                <strong>{{ post.views }} Views</strong>
+            </p>
+            <p class="pull-left">
+                <strong id="likesCount">{{ post.likes }} Likes</strong>
+            </p>
+            <p class="pull-left">
+                <strong id="commentsCount">{{ post.number_of_comments }} Comments</strong>
+            </p>
+            {% if user.is_authenticated %}
+            <a href="#" class="pull-right">
+                {% if not flag %}
+                <img id="likeImg" src="{% static 'img/likeImg.png' %}" alt="LIKE">
+                {% else %}
+                <img id="likeImg" src="{% static 'img/likeImgRed.png' %}" alt="LIKE">
+                {% endif %}
+            </a>
+            {% else %}
+            <p class="pull-right">Sign in to like</p>
+            {% endif %}
+        </div>
+        <div id="comments" class="container">
+            {% for comment in comments %}
+            <div class="comment container">
+                <div class="user text-center">
+                    <a href="#"><img src="{{ comment.user.userdetails.image }}" class="img-circle" alt="img"></a>
+                    <a href="#"><p>{{ comment.user.first_name }}&nbsp{{ comment.user.last_name }}</p></a>
+                </div>
+                <div class="comment-text">{{ comment.body }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if user.is_authenticated %}
+        <div id="comment-form" class="container">
+            <form id="commentForm" action="" method="POST">
+                {% csrf_token %}
+                <input id="postid" type="hidden" name="post_id" value="{{ post.id }}">
+                <textarea name="comment" id="comment-input" cols="120" rows="8" placeholder="Write your comment here."></textarea>
+                <button id="commentBtn" type="submit" class="btn btn-success green pull-right"><i class="fa fa-share"></i>Comment</button>
+            </form>
+        </div>
+        {% else %}
+        <div>
+            <p>Sign in to comment</p>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock content%}
