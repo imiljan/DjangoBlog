@@ -24,8 +24,10 @@ def index(request):
 def post(request, pk):
     post = get_object_or_404(Post, pk=pk, deleted=False)
     comments = Comment.objects.filter(post_id=pk).order_by('id')
-    return render(request, 'post.html', {'title': post.title, 'post': post, 'comments': comments})
+    form2 = SignInForm()
+    return render(request, 'post.html', {'title': post.title, 'post': post, 'comments': comments, 'form2': form2})
 
 
 def posts(request):
-    return render(request, 'posts.html', {'posts': Post.objects.filter(deleted=False)})
+    form2 = SignInForm()
+    return render(request, 'posts.html', {'posts': Post.objects.filter(deleted=False), 'form2': form2})

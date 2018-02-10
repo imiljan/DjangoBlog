@@ -15,34 +15,10 @@ class SignInForm(forms.Form):
         fields = ['username', 'password']
 
 
-class EditUserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(), required=True)
-    confirm = forms.CharField(widget=forms.PasswordInput(), required=True)
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'password']
-
-    def clean(self):
-        cleaned_data = super(EditUserForm, self).clean()
-        password = cleaned_data.get('password')
-        confirm = cleaned_data.get('confirm')
-
-        if password != confirm:
-            raise ValidationError("Passwords don't match!")
-
-
-class EditUserDetailsForm(forms.ModelForm):
-    image = forms.FileField(widget=forms.FileInput(), required=False)
+class EditProfileForm(forms.Form):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     bio = forms.CharField(widget=forms.Textarea())
-
-    class Meta:
-        model = UserDetails
-        fields = ['bio', 'image']
-
-
-class EditProfileForm(MultiModelForm):
-    form_classes = {
-        'user': EditUserForm,
-        'user_details': EditUserDetailsForm
-    }
+    image = forms.FileField(widget=forms.FileInput(), required=False)
+    password = forms.CharField(widget=forms.PasswordInput())
+    confirm = forms.CharField(widget=forms.PasswordInput())
