@@ -104,7 +104,7 @@
     {% endfor %}
                             <br>
                             <p style="color: grey;">Last name:</p>
-                            {% render_field form.last_name class="form-control" value="{{ user.last_name }}" %}
+                            {% render_field form.user class="form-control" value="{{ user.last_name }}" %}
                             <br>
                             <p style="color: grey;">Bio:</p>
                             {% render_field form.bio id="bio" cols="67" rows="5" class="form-control" value="{{ user.bio }}" %}
