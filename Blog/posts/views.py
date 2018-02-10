@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from users.forms import SignInForm
 from .models import Post, Comment
@@ -8,7 +8,7 @@ from .forms import SignUpForm
 
 def index(request):
     title = 'Home'
-    posts = Post.objects.all()
+    posts = Post.objects.filter(deleted=False).order_by('created_at').reverse()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -22,9 +22,10 @@ def index(request):
 
 
 def post(request, pk):
-    post = Post.objects.get(pk=pk)
-    return render(request, 'post.html', {'title': post.title, 'post': post})
+    post = get_object_or_404(Post, pk=pk, deleted=False)
+    comments = Comment.objects.filter(post_id=pk).order_by('id')
+    return render(request, 'post.html', {'title': post.title, 'post': post, 'comments': comments})
 
 
 def posts(request):
-    return render(request, 'posts.html', {'posts': Post.objects.all()})
+    return render(request, 'posts.html', {'posts': Post.objects.filter(deleted=False)})

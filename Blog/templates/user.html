@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load widget_tweaks %}
 
 {% block content %}
 
@@ -30,15 +31,15 @@
                     <div>posts</div>
                 </div>
                 <div class="likes text-center">
-                    <div class="count">{{ user.noOfLikes }}</div>
+                    <div class="count">{{ user.userdetails.no_of_likes }}</div>
                     <div>likes</div>
                 </div>
                 <div class="comments text-center">
-                    <div class="count">{{ user.noOfComments }}</div>
+                    <div class="count">{{ user.userdetails.no_of_comments }}</div>
                     <div>comments</div>
                 </div>
                 <div class="views text-center">
-                    <div class="count">{{ user.noOfViews }}</div>
+                    <div class="count">{{ user.userdetails.no_of_views }}</div>
                     <div>views</div>
                 </div>
             </div>
@@ -59,7 +60,7 @@
                         <div>likes</div>
                     </div>
                     <div class="comments text-center">
-                        <div class="count">{{ post.noOfComments }}</div>
+                        <div class="count">{{ post.number_of_comments }}</div>
                         <div>comments</div>
                     </div>
                     <div class="views text-center">
@@ -96,21 +97,25 @@
                         </div>
                         <div class="modal-body">
                             <p style="color: grey;">First name:</p>
-                            <input id="first-name" type="text" class="form-control" name="firstname" value="{{ user.first_name }}" required>
+{% for field in form %}
+  <div class="form-group">
+    {{ field.label_tag }}
+    {% render_field field %}
+    {% endfor %}
                             <br>
                             <p style="color: grey;">Last name:</p>
-                            <input id="last-name" type="text" class="form-control" name="lastname" value="{{ user.first_name }}" required>
+                            {% render_field form.last_name class="form-control" value="{{ user.last_name }}" %}
                             <br>
                             <p style="color: grey;">Bio:</p>
-                            <textarea name="bio" id="bio" cols="67" rows="5">{{ user.bio }}</textarea>
+                            {% render_field form.bio id="bio" cols="67" rows="5" class="form-control" value="{{ user.bio }}" %}
                             <br>
                             <p style="color: grey;">Profile picture: (for best UX upload a square picture)</p>
-                            <input id="pictureUpld" type="file" class="form-control" name="file">
+                            {% render_field form.image class="form-control" %}
                             <p style="color: grey;">Password:</p>
-                            <input id="password" type="password" class="form-control" name="password" required>
+                            {% render_field form.password class="form-control" %}
                             <br>
                             <p style="color: grey;">Confirm password:</p>
-                            <input id="passwordConfirm" type="password" class="form-control" name="passwordConfirm" required>
+                            {% render_field form.confirm class="form-control" %}
                         </div>
                         <div class="modal-footer form-group">
                             <button id="submitBtn" class="btn btn-primary pull-left" type="submit">Submit</button>

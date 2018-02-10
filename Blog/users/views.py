@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from posts.models import Post
-from users.forms import SignInForm
+from users.forms import SignInForm, EditProfileForm
 
 
 def signin(request):
@@ -29,4 +29,18 @@ def users(request):
 
 def user(request, pk):
     user = User.objects.get(pk=pk)
-    posts = Post.objects.filter(user_id=pk)
+    posts = Post.objects.filter(user_id=pk, deleted=False)
+    user_id = request.user.pk
+
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('user', pk)
+    else:
+        form = EditProfileForm()
+        print(dir(form.visible_fields()))
+    return render(request, 'user.html', {'user': user,
+                                         'posts': posts,
+                                         'form': form,
+                                         'pk': user_id})
