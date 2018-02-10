@@ -41,5 +41,11 @@
     </div>
 </form>
 
-<script ></script>
+<script>
+    $(window).on('load', function() {
+        if($('#message').val()) {
+            $('#myModal').modal('show');
+        }
+    });
+</script>
 
