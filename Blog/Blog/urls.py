@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from posts.views import index, post, posts
-from users.views import signin, users, user
+from posts.views import index, post, posts, like, create, comment
+from users.views import signin, users, user, delete
 
 
 urlpatterns = [
@@ -29,5 +29,9 @@ urlpatterns = [
     path('posts/<int:pk>/', post, name='post'),
     path('posts/', posts, name='posts'),
     path('users/', users, name='users'),
-    path('users/<int:pk>/', user, name='user')
+    path('users/<int:pk>/', user, name='user'),
+    path('posts/<int:pk>/like', like, name='like'),
+    path('users/<int:pk>/delete', delete, name='delete'),
+    path('posts/create', create, name='create'),
+    path('posts/<int:pk>/comment', comment, name='comment')
 ]

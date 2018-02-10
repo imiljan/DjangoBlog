@@ -1,5 +1,4 @@
 Django==2.0.2
-django-betterforms==1.1.4
-django-widget-tweaks==1.4.1
+django-widgets-improved==1.5.0
 pytz==2018.3
 six==1.11.0

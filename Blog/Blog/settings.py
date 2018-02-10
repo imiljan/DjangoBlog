@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
-    'betterforms',
 
     'posts',
     'users',
@@ -130,7 +129,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
 
 LOGIN_REDIRECT_URL = 'index'
 

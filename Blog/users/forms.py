@@ -22,3 +22,11 @@ class EditProfileForm(forms.Form):
     image = forms.FileField(widget=forms.FileInput(), required=False)
     password = forms.CharField(widget=forms.PasswordInput())
     confirm = forms.CharField(widget=forms.PasswordInput())
+
+
+class DeleteProfileForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput(), required=True)
+
+    class Meta:
+        model = User
+        fields = ['password']

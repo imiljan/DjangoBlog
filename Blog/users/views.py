@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from posts.models import Post
-from users.forms import SignInForm, EditProfileForm
+from users.forms import SignInForm, EditProfileForm, DeleteProfileForm
 
 
 def signin(request):
@@ -15,7 +15,8 @@ def signin(request):
             try:
                 u = User.objects.get(username=request.POST['username'])
             except:
-                messages.add_message(request, messages.ERROR, "Invalid credentials")
+                messages.add_message(request, messages.ERROR,
+                                     "Invalid credentials")
                 return redirect('index')
             login(request, u)
         return redirect('index')
@@ -24,9 +25,9 @@ def signin(request):
 
 
 def users(request):
-    users = User.objects.all()
+    u = User.objects.all()
     form2 = SignInForm()
-    return render(request, 'users.html', {'users': users, 'form2': form2})
+    return render(request, 'users.html', {'users': u, 'form2': form2})
 
 
 def user(request, pk):
@@ -48,7 +49,22 @@ def user(request, pk):
         form = EditProfileForm(initial={'first_name': user.first_name,
                                         'last_name': user.last_name,
                                         'bio': user.userdetails.bio})
-    return render(request, 'user.html', {'user': user,
-                                         'posts': posts,
-                                         'form': form,
-                                         'form2': form2})
+
+    return render(request, 'user.html', {'user': user, 'posts': posts,
+                                         'form': form, 'form2': form2})
+
+
+def delete(request, pk):
+    if request.method == 'POST':
+        form = DeleteProfileForm(request.POST)
+        if form.is_valid() and User.objects.get(pk=pk).check_password(request.POST['password']):
+            u = User.objects.get(pk=pk)
+            u.is_active = False
+            u.save()
+            return redirect('logout')
+        else:
+            messages.add_message(request, messages.ERROR, 'Wrong password!')
+    else:
+        form = DeleteProfileForm()
+
+    return render(request, 'deleteprofile.html', {'form': form})
