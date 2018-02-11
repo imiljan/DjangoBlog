@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% load static %}
 
-    <!-- Trending and latest posts (tabs) -->
+{% block content %}
+<!-- Trending and latest posts (tabs) -->
 <div id="posts" class="container">
 
     <h2 class="text-center">Search results</h2>
@@ -46,14 +47,14 @@
         {% for user in users %}
             <div class="post">
                 <div class="postStats container text-center">
-                    <a href="{% url 'user' user.id %}"><img class="img-circle" src="{{ user.image }}" alt="AVATAR" style="height: 128px; width: 128px;"></a>
+                    <a href="{% url 'user' user.id %}"><img class="img-circle" src="http://127.0.0.1:8000/{{ user.userdetails.image }}" alt="AVATAR" style="height: 128px; width: 128px;"></a>
                     <br>
                     <p style="display: block;">{{ user.username }}</p>
                 </div>
                 <div class="postTitleDiv">
-                    <a href="{% url 'user' user.id %}"><h3>{{ $user->name }}</h3></a>
+                    <a href="{% url 'user' user.id %}"><h3>{{ user.username }}</h3></a>
                     <div class="dateCreatedDiv pull-right">
-                        <p>Date joined: {{ user.created_at }}</p>
+                        <p>Date joined: {{ user.date_joined }}</p>
                     </div>
                 </div>
             </div>
@@ -61,5 +62,4 @@
         </div>
     </div>
 </div>
-
 {% endblock content %}

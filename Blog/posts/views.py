@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -82,3 +83,13 @@ def comment(request, pk):
             return JsonResponse({'message': c.body})
     else:
         return JsonResponse({'message': 'error'})
+
+
+def search(request):
+    q = request.GET['q']
+    p = Post.objects.filter(Q(title__contains=q) | Q(body__contains=q))\
+        .order_by('created_at')
+    u = User.objects.filter(Q(username__contains=q) | Q(first_name__contains=q) |
+                            Q(last_name__contains=q) | Q(email__contains=q))\
+        .order_by('username')
+    return render(request, 'searchresults.html', {'posts': p, 'users': u})

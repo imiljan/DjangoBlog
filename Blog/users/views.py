@@ -4,7 +4,6 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
-from Blog.settings import BASE_DIR
 from posts.models import Post
 from users.forms import DeleteProfileForm, EditProfileForm, SignInForm
 
@@ -75,5 +74,4 @@ def delete(request, pk):
             messages.add_message(request, messages.ERROR, 'Wrong password!')
     else:
         form = DeleteProfileForm()
-
     return render(request, 'deleteprofile.html', {'form': form})

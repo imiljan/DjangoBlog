@@ -17,20 +17,21 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from posts.views import comment, create, index, like, post, posts
+from posts.views import comment, create, index, like, post, posts, search
 from users.views import delete, signin, user, users
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('signin/', signin, name='signin'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('posts/<int:pk>/', post, name='post'),
-    path('posts/', posts, name='posts'),
-    path('users/', users, name='users'),
+    path('search/', search, name='search'),
     path('users/<int:pk>/', user, name='user'),
+    path('posts/', posts, name='posts'),
+    path('posts/<int:pk>/', post, name='post'),
     path('posts/<int:pk>/like', like, name='like'),
-    path('users/<int:pk>/delete', delete, name='delete'),
+    path('posts/<int:pk>/comment', comment, name='comment'),
     path('posts/create', create, name='create'),
-    path('posts/<int:pk>/comment', comment, name='comment')
+    path('users/', users, name='users'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('users/<int:pk>/delete', delete, name='delete'),
+    path('admin/', admin.site.urls),
 ]

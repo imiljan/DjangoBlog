@@ -20,7 +20,7 @@
                     <a href="{% url 'users' %}">Users</a>
                 </li>
                 <li>
-                    <form action="" class="navbar-form" role="search">
+                    <form action="{% url 'search' %}" class="navbar-form" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" name="q">
                             <div class="input-group-btn">
