@@ -58,6 +58,8 @@ def like(request, pk):
         p.likes += 1
         p.save()
         return JsonResponse({'message': 'success'})
+    else:
+        return redirect('post', pk)
 
 
 def create(request):
@@ -86,7 +88,10 @@ def comment(request, pk):
 
 
 def search(request):
-    q = request.GET['q']
+    try:
+        q = request.GET['q']
+    except:
+        return redirect('index')
     p = Post.objects.filter(Q(title__contains=q) | Q(body__contains=q))\
         .order_by('created_at')
     u = User.objects.filter(Q(username__contains=q) | Q(first_name__contains=q) |

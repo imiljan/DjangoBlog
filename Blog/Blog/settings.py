@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'posts',
     'users',
 
-
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'Blog.urls'
@@ -133,3 +135,6 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = 'index'
 
 LOGOUT_REDIRECT_URL = 'index'
+
+
+INTERNAL_IPS = ('127.0.0.1',)

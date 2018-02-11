@@ -3,12 +3,13 @@
 {% load widget_tweaks %}
 
 {% load static %}
+{% static "" as baseUrl %}
 
 {% block content %}
     <div id="row" class="container">
         <h2>{{ post.title }}</h2>
         <div id="owner-of-post" class="text-center pull-right">
-            <a href="{% url 'user' user.pk %}"><img id="owner-img" src="{{ user.userdetails.image }}" class="img-circle" alt="user"></a>
+            <a href="{% url 'user' user.pk %}"><img id="owner-img" src="{{ baseUrl }}/{{ user.userdetails.image }}" class="img-circle" alt="user"></a>
             <br>
             <a href="{% url 'user' user.pk %}"><span>{{ user.username }}</span></a>
         </div>
@@ -40,7 +41,7 @@
             {% for comment in comments %}
             <div class="comment container">
                 <div class="user text-center">
-                    <a href="{% url 'user' comment.user_id.id %}"><img src="{{ comment.user_id.userdetails.image }}" class="img-circle" alt="img"></a>
+                    <a href="{% url 'user' comment.user_id.id %}"><img src="{{ baseUrl }}/{{ comment.user_id.userdetails.image }}" class="img-circle" alt="img"></a>
                     <a href="{% url 'user' comment.user_id.id %}"><p>{{ comment.user_id.username }}</p></a>
                 </div>
                 <div class="comment-text">{{ comment.body }}</div>

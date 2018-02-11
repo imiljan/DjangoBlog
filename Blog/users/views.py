@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from posts.models import Post
 from users.forms import DeleteProfileForm, EditProfileForm, SignInForm
@@ -35,7 +35,7 @@ def users(request):
 
 
 def user(request, pk):
-    user = User.objects.get(pk=pk)
+    user = get_object_or_404(User, pk=pk)
     posts = Post.objects.filter(user_id=pk, deleted=False)
     form2 = SignInForm()
 
@@ -63,7 +63,7 @@ def user(request, pk):
 
 
 def delete(request, pk):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         form = DeleteProfileForm(request.POST)
         if form.is_valid() and User.objects.get(pk=pk).check_password(request.POST['password']):
             u = User.objects.get(pk=pk)
@@ -72,6 +72,8 @@ def delete(request, pk):
             return redirect('logout')
         else:
             messages.add_message(request, messages.ERROR, 'Wrong password!')
-    else:
+    elif request.method == 'GET' and request.user.is_authenticated:
         form = DeleteProfileForm()
-    return render(request, 'deleteprofile.html', {'form': form})
+        return render(request, 'deleteprofile.html', {'form': form})
+    else:
+        return redirect('index')
