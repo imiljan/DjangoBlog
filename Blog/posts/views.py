@@ -1,12 +1,11 @@
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 
-from posts.models import Like
-from users.forms import SignInForm
-from .models import Post, Comment
-from .forms import SignUpForm, CreatePostForm, CommentForm
+from posts.forms import CommentForm, CreatePostForm
+from posts.models import Comment, Like, Post
+from users.forms import SignInForm, SignUpForm
 
 
 def index(request):

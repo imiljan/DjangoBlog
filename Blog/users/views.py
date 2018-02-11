@@ -2,10 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
 from posts.models import Post
-from users.forms import SignInForm, EditProfileForm, DeleteProfileForm
+from users.forms import DeleteProfileForm, EditProfileForm, SignInForm
 
 
 def signin(request):
@@ -18,7 +18,11 @@ def signin(request):
                 messages.add_message(request, messages.ERROR,
                                      "Invalid credentials")
                 return redirect('index')
-            login(request, u)
+            if u and u.check_password(request.POST['password']):
+                login(request, u)
+            else:
+                messages.add_message(request, messages.ERROR,
+                                     'Invalid credentials')
         return redirect('index')
     else:
         return redirect('index')
