@@ -30,7 +30,7 @@ def post(request, pk):
     p.views += 1
     p.save()
     comments = Comment.objects.filter(post_id=pk).order_by('id')
-    user = User.objects.get(pk=post.user_id.id)
+    user = User.objects.get(pk=p.user_id.id)
     flag = False
     try:
         Like.objects.get(user_id=request.user.id, post_id=p.id)
@@ -39,7 +39,7 @@ def post(request, pk):
         pass
     form2 = SignInForm()
     comment_form = CommentForm()
-    return render(request, 'post.html', {'title': post.title, 'post': post,
+    return render(request, 'post.html', {'title': p.title, 'post': p,
                                          'comments': comments, 'user': user,
                                          'flag': flag, 'form2': form2,
                                          'comment_form': comment_form})
@@ -57,7 +57,7 @@ def like(request, pk):
         p = Post.objects.get(pk=pk)
         p.likes += 1
         p.save()
-        return JsonResponse({'message': 'Success'})
+        return JsonResponse({'message': 'success'})
 
 
 def create(request):

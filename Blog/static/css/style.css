@@ -93,6 +93,7 @@ h2, p {
 
 .post-text {
     border-bottom: solid 1px grey;
+    min-height: 128px;
 }
 
 #stats {
@@ -119,6 +120,7 @@ h2, p {
     border-bottom: solid 1px black; 
     width: 100%; 
     margin-bottom: 2em;
+    display: inline-flex;
 }
 
 .user {
