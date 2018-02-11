@@ -4,6 +4,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
+from Blog.settings import BASE_DIR
 from posts.models import Post
 from users.forms import DeleteProfileForm, EditProfileForm, SignInForm
 
@@ -40,14 +41,18 @@ def user(request, pk):
     form2 = SignInForm()
 
     if request.method == 'POST':
-        form = EditProfileForm(request.POST)
+        form = EditProfileForm(request.POST, request.FILES)
         if form.is_valid() and form.cleaned_data['password'] == form.cleaned_data['confirm']:
             u = User.objects.get(id=request.user.pk)
             u.first_name = form.cleaned_data['first_name']
             u.last_name = form.cleaned_data['last_name']
             u.userdetails.bio = form.cleaned_data['bio']
+            u.userdetails.image = form.cleaned_data['image']
+            print('Uspesan (kao) upload.\n\nFile:\t')
+            print(form.cleaned_data['image'])
             u.password = make_password(form.cleaned_data['password'])
             u.save()
+            login(request, u)
             return redirect('user', user.pk)
     else:
         form = EditProfileForm(initial={'first_name': user.first_name,

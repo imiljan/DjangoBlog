@@ -3,13 +3,14 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from Blog.settings import BASE_DIR
 from posts.models import Comment, Post
 
 
 class UserDetails(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    image = models.URLField(blank=True, default='http://127.0.0.1:8000/static/img/man.png')
+    image = models.ImageField(upload_to='static/img', default='static/img/man.png')
 
     def __str__(self):
         return 'Username: {} \n Bio: {}'.format(self.user.username, self.bio)

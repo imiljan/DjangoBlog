@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% static "" as baseUrl %}
 {% load widget_tweaks %}
 
 {% block content %}
 
+
+
     <div id="contentProfile">
         <div class="row">
             <div id="profileImg" class="col-sm-4 text-center">
-                <img id="profile-img" src="{{ user.userdetails.image }}" class="img-circle" alt="man">
+                <img id="profile-img" src="{{ baseUrl }}/{{ user.userdetails.image }}" class="img-circle" alt="man">
                 {% if request.user.is_authenticated and user.pk == request.user.pk %}
                 <a id="modal-link" href="#" data-toggle="modal" data-target="#modalEdit">Edit profile</a>
                 <br>

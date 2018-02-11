@@ -25,7 +25,7 @@ class EditProfileForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
     bio = forms.CharField(widget=forms.Textarea())
-    image = forms.FileField(widget=forms.FileInput(), required=False)
+    image = forms.ImageField(required=False)
     password = forms.CharField(widget=forms.PasswordInput())
     confirm = forms.CharField(widget=forms.PasswordInput())
 

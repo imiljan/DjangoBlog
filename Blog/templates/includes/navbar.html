@@ -40,7 +40,7 @@
             {% else %}
                 <li>
                     <a href="{% url 'logout' %}" style="display: inline-block;">Log out</a>
-                    <a href="{% url 'user' request.user.id %}" style="display: inline-block;"><img id="profilePic" class="img-circle" src="{{ request.user.userdetails.image }}" alt="avatar"></a>
+                    <a href="{% url 'user' request.user.id %}" style="display: inline-block;"><img id="profilePic" class="img-circle" src="http://127.0.0.1:8000/{{ user.userdetails.image }}" alt="avatar"></a>
                 </li>
             {% endif %}
             </ul>
