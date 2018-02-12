@@ -21,10 +21,6 @@ from posts.views import comment, create, index, like, post, posts, search
 from users.views import delete, signin, user, users
 
 
-from django.conf.urls import include, url
-#import debug_toolbar
-
-
 urlpatterns = [
     path('', index, name='index'),
     path('signin/', signin, name='signin'),
@@ -39,7 +35,4 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('users/<int:pk>/delete', delete, name='delete'),
     path('admin/', admin.site.urls),
-
-    #url(r'^__debug__/', include(debug_toolbar.urls)),
-
 ]

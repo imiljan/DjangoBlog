@@ -27,6 +27,13 @@
                     </p>
                     <p style="color: green;">{{ user.email }}</p>
                 </div>
+                {% if messages %}
+                    <div class="">
+                        {% for message in messages %}
+                            <p class="sessionFlash">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             <div id="userStats" class="col-sm-4 container text-center">
                 <div class="likes text-center">
