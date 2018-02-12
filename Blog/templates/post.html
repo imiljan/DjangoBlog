@@ -114,7 +114,7 @@
                         }
                         var newComment = `<div class="comment container">
                                             <div class="user text-center">
-                                                <a href="{% url 'user' request.user.id %}"><img src="{{ request.user.userdetails.image }}" class="img-circle" alt="img"></a>
+                                                <a href="{% url 'user' request.user.id %}"><img src="{{ baseUrl }}/{{ request.user.userdetails.image }}" class="img-circle" alt="img"></a>
                                                 <a href="{% url 'user' request.user.id %}"><p>{{ request.user.username }}</p></a>
                                             </div>
                                             <div class="comment-text">

@@ -31,7 +31,7 @@ def signin(request):
 def users(request):
     u = User.objects.all()
     form2 = SignInForm()
-    return render(request, 'users.html', {'users': u, 'form2': form2})
+    return render(request, 'users.html', {'users': u, 'form2': form2, 'title': 'Users'})
 
 
 def user(request, pk):
@@ -46,9 +46,10 @@ def user(request, pk):
             u.first_name = form.cleaned_data['first_name']
             u.last_name = form.cleaned_data['last_name']
             u.userdetails.bio = form.cleaned_data['bio']
-            u.userdetails.image = form.cleaned_data['image']
-            print('Uspesan (kao) upload.\n\nFile:\t')
-            print(form.cleaned_data['image'])
+            if form.cleaned_data['image'] is not None:
+                u.userdetails.image = form.cleaned_data['image']
+            #print('Uspesan (kao) upload.\n\nFile:\t')
+            #print(form.cleaned_data['image'])
             u.password = make_password(form.cleaned_data['password'])
             u.save()
             login(request, u)
@@ -59,7 +60,7 @@ def user(request, pk):
                                         'bio': user.userdetails.bio})
 
     return render(request, 'user.html', {'user': user, 'posts': posts,
-                                         'form': form, 'form2': form2})
+                                         'form': form, 'form2': form2, 'title': user.username})
 
 
 def delete(request, pk):
@@ -72,8 +73,9 @@ def delete(request, pk):
             return redirect('logout')
         else:
             messages.add_message(request, messages.ERROR, 'Wrong password!')
+            return render(request, 'deleteprofile.html', {'form': form, 'title': 'Delete your profile'})
     elif request.method == 'GET' and request.user.is_authenticated:
         form = DeleteProfileForm()
-        return render(request, 'deleteprofile.html', {'form': form})
+        return render(request, 'deleteprofile.html', {'form': form, 'title': 'Delete your profile'})
     else:
         return redirect('index')

@@ -48,7 +48,7 @@ def post(request, pk):
 def posts(request):
     form2 = SignInForm()
     p = Post.objects.filter(deleted=False).order_by('created_at')
-    return render(request, 'posts.html', {'posts': p, 'form2': form2})
+    return render(request, 'posts.html', {'posts': p, 'form2': form2, 'title': 'Posts'})
 
 
 def like(request, pk):
@@ -72,7 +72,7 @@ def create(request):
             return redirect('post', p.id)
     else:
         form = CreatePostForm()
-    return render(request, 'createpost.html', {'form': form})
+    return render(request, 'createpost.html', {'form': form, 'title': 'Create a post'})
 
 
 def comment(request, pk):
@@ -97,4 +97,4 @@ def search(request):
     u = User.objects.filter(Q(username__contains=q) | Q(first_name__contains=q) |
                             Q(last_name__contains=q) | Q(email__contains=q))\
         .order_by('username')
-    return render(request, 'searchresults.html', {'posts': p, 'users': u})
+    return render(request, 'searchresults.html', {'posts': p, 'users': u, 'title': q + ' - Search'})

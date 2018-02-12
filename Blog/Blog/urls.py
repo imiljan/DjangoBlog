@@ -22,7 +22,7 @@ from users.views import delete, signin, user, users
 
 
 from django.conf.urls import include, url
-import debug_toolbar
+#import debug_toolbar
 
 
 urlpatterns = [
@@ -40,6 +40,6 @@ urlpatterns = [
     path('users/<int:pk>/delete', delete, name='delete'),
     path('admin/', admin.site.urls),
 
-    url(r'^__debug__/', include(debug_toolbar.urls)),
+    #url(r'^__debug__/', include(debug_toolbar.urls)),
 
 ]

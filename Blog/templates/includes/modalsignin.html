@@ -4,7 +4,7 @@
     {% csrf_token %}
     <div id="signInWindow" class="container">
         <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
+        <div id="myModal" class="modal fade" role="dialog" tabindex="-1">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -15,13 +15,10 @@
                     <div class="modal-body">
 
                         {% if messages %}
-                            <input id="message" type="hidden" value="true">
-                            {% for message in messages %}
-                            <p class="sessionFlash">{{ message }}</p>
-                            {% endfor %}
-                        {% else %}
-                            <input id="message" type="hidden" value="false">
-                        {% endif %}
+                        <input id="message" type="hidden" value="true"> {% for message in messages %}
+                        <p class="sessionFlash">{{ message }}</p>
+                        {% endfor %} {% else %}
+                        <input id="message" type="hidden" value="false"> {% endif %}
 
 
                         <p class="labelCustom">Username:</p>
@@ -42,10 +39,9 @@
 </form>
 
 <script>
-    $(window).on('load', function() {
-        if($('#message').val() == "true") {
+    $(window).on('load', function () {
+        if ($('#message').val() == "true") {
             $('#myModal').modal('show');
         }
     });
 </script>
-
