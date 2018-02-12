@@ -20,7 +20,6 @@ from django.urls import path
 from posts.views import comment, create, index, like, post, posts, search
 from users.views import delete, signin, user, users
 
-
 urlpatterns = [
     path('', index, name='index'),
     path('signin/', signin, name='signin'),

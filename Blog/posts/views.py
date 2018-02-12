@@ -50,7 +50,7 @@ def post(request, pk):
 
 def posts(request):
     form2 = SignInForm()
-    p = Post.objects.filter(deleted=False).order_by('created_at')
+    p = Post.objects.filter(deleted=False).order_by('created_at').reverse()
     return render(request, 'posts.html', {'posts': p, 'form2': form2, 'title': 'Posts'})
 
 
@@ -89,8 +89,9 @@ def comment(request, pk):
             c = Comment.objects.create(body=request.POST['body'],
                                        user_id=request.user, post_id=p)
             return JsonResponse({'message': c.body})
-    else:
-        return JsonResponse({'message': 'error'})
+        else:
+            return JsonResponse({'message': 'error'})
+    return redirect('post', pk)
 
 
 def search(request):

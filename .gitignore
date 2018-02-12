@@ -107,5 +107,9 @@ venv.bak/
 #PyCharm
 .idea/
 
+#VSCode
 .vscode/
+
+#SQLite
+db.sqlite3
 
