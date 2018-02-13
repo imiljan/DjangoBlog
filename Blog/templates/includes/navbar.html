@@ -33,21 +33,24 @@
                 </li>
             </ul>
             <ul id="rightNavList" class="nav navbar-nav pull-right">
-            {% if not request.user.is_authenticated %}
+                {% if not request.user.is_authenticated %}
                 <li>
                     <a href="#" data-toggle="modal" data-target="#myModal">Sign In</a>
                 </li>
-            {% else %}
+                {% else %}
                 <li>
                     <a href="{% url 'logout' %}" style="display: inline-block;">Log out</a>
-                    <a href="{% url 'user' request.user.id %}" style="display: inline-block;"><img id="profilePic" class="img-circle" src="http://127.0.0.1:8000/{{ request.user.userdetails.image }}" alt="avatar"></a>
+                    <a href="{% url 'user' request.user.id %}" style="display: inline-block;">
+                        <img id="profilePic" class="img-circle" src="http://127.0.0.1:8000/{{ request.user.userdetails.image }}"
+                            alt="avatar">
+                    </a>
                 </li>
-            {% endif %}
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
-{% if not request.user.is_authenticated %}
-    {% include 'includes/modalsignin.html' %}
+{% if not request.user.is_authenticated %} 
+    {% include 'includes/modalsignin.html' %} 
 {% endif %}

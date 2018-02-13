@@ -1,118 +1,131 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{% load widget_tweaks %}
+{% load widget_tweaks %} 
 
-{% load static %}
-{% static "" as baseUrl %}
+{% load static %} 
+{% static "" as baseUrl %} 
 
 {% block content %}
-    <div id="row" class="container">
-        <h2>{{ post.title }}</h2>
-        <div id="owner-of-post" class="text-center pull-right">
-            <a href="{% url 'user' user.pk %}"><img id="owner-img" src="{{ baseUrl }}/{{ user.userdetails.image }}" class="img-circle" alt="user"></a>
-            <br>
-            <a href="{% url 'user' user.pk %}"><span>{{ user.username }}</span></a>
-        </div>
+<div id="row" class="container">
+    <h2>{{ post.title }}</h2>
+    <div id="owner-of-post" class="text-center pull-right">
+        <a href="{% url 'user' user.pk %}">
+            <img id="owner-img" src="{{ baseUrl }}/{{ user.userdetails.image }}" class="img-circle" alt="user">
+        </a>
         <br>
-        <div class="post-text">{{ post.body|linebreaks }}</div>
-        <div id="stats" class="container">
-            <p class="pull-left">
-                <strong>{{ post.views }} Views</strong>
-            </p>
-            <p class="pull-left">
-                <strong id="likesCount">{{ post.likes }} Likes</strong>
-            </p>
-            <p class="pull-left">
-                <strong id="commentsCount">{{ post.number_of_comments }} Comments</strong>
-            </p>
-            {% if request.user.is_authenticated %}
+        <a href="{% url 'user' user.pk %}">
+            <span>{{ user.username }}</span>
+        </a>
+    </div>
+    <br>
+    <div class="post-text">{{ post.body|linebreaks }}</div>
+    <div id="stats" class="container">
+        <p class="pull-left">
+            <strong>{{ post.views }} Views</strong>
+        </p>
+        <p class="pull-left">
+            <strong id="likesCount">{{ post.likes }} Likes</strong>
+        </p>
+        <p class="pull-left">
+            <strong id="commentsCount">{{ post.number_of_comments }} Comments</strong>
+        </p>
+        {% if request.user.is_authenticated %}
             <a href="#" class="pull-right">
                 {% if not flag %}
-                <img id="likeImg" src="{% static 'img/likeImg.png' %}" alt="LIKE">
+                    <img id="likeImg" src="{% static 'img/likeImg.png' %}" alt="LIKE"> 
                 {% else %}
-                <img id="likeImg" src="{% static 'img/likeImgRed.png' %}" alt="LIKE">
+                    <img id="likeImg" src="{% static 'img/likeImgRed.png' %}" alt="LIKE"> 
                 {% endif %}
             </a>
             {% else %}
             <p class="pull-right">Sign in to like</p>
-            {% endif %}
-        </div>
-        <div id="comments" class="container">
-            {% for comment in comments %}
-            <div class="comment container">
-                <div class="user text-center">
-                    <a href="{% url 'user' comment.user_id.id %}"><img src="{{ baseUrl }}/{{ comment.user_id.userdetails.image }}" class="img-circle" alt="img"></a>
-                    <a href="{% url 'user' comment.user_id.id %}"><p>{{ comment.user_id.username }}</p></a>
-                </div>
-                <div class="comment-text">{{ comment.body|linebreaks }}</div>
-            </div>
-            {% endfor %}
-        </div>
-        {% if request.user.is_authenticated %}
-        <div id="comment-form" class="container">
-            <form id="commentForm" action="" method="POST">
-                {% csrf_token %}
-                <input id="postid" type="hidden" name="post_id" value="{{ post.id }}">
-                    {% render_field comment_form.body cols="120" rows="8" placeholder="Write your comment here." %}
-                <button id="commentBtn" type="submit" class="btn btn-success green pull-right"><i class="fa fa-share"></i>Comment</button>
-            </form>
-        </div>
-        {% else %}
-        <div>
-            <p>Sign in to comment</p>
-        </div>
         {% endif %}
     </div>
-
+    <div id="comments" class="container">
+        {% for comment in comments %}
+        <div class="comment container">
+            <div class="user text-center">
+                <a href="{% url 'user' comment.user_id.id %}">
+                    <img src="{{ baseUrl }}/{{ comment.user_id.userdetails.image }}" class="img-circle" alt="img">
+                </a>
+                <a href="{% url 'user' comment.user_id.id %}">
+                    <p>{{ comment.user_id.username }}</p>
+                </a>
+            </div>
+            <div class="comment-text">{{ comment.body|linebreaks }}</div>
+        </div>
+        {% endfor %}
+    </div>
     {% if request.user.is_authenticated %}
-    <script>
-        {% if not flag %}
-            //alert('Niste lajkovali ovaj post!');
-            $('#likeImg').one('click',function (event) {
-                event.preventDefault();
-                var url = "{% url 'like' post.id %}";
-                var token = $('input[name=csrfmiddlewaretoken]').val();
-                // AJAX da se doda lajk u bazu
-                // jos uvek moze vise puta da se lajkuje
-                $.ajaxSetup({
-                    headers: { 'X-CSRFToken': token }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    success: function (data) {
-                        //alert(data.message);
-                        if(data.message == "success") {
-                            $('#likeImg').attr("src", "{% static 'img/likeImgRed.png' %}");
-                            var count = $('#likesCount').html().split(' ')[0];
-                            count++;
-                            $('#likesCount').html(count + ' Likes');
-                        }
-                    }
-                });
-            });
-        {% endif %}
-    </script>
+    <div id="comment-form" class="container">
+        <form id="commentForm" action="" method="POST">
+            {% csrf_token %}
+            <input id="postid" type="hidden" name="post_id" value="{{ post.id }}"> {% render_field comment_form.body cols="120" rows="8" placeholder="Write your comment here." %}
+            <button id="commentBtn" type="submit" class="btn btn-success green pull-right">
+                <i class="fa fa-share"></i>Comment</button>
+        </form>
+    </div>
+    {% else %}
+    <div>
+        <p>Sign in to comment</p>
+    </div>
+    {% endif %}
+</div>
 
-    <script>
-        $('#commentForm').on('submit', function (e) {
-                e.preventDefault();
-                var url = "{% url 'comment' post.id %}";
-                $.ajaxSetup({
-                    headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: $(this).serialize(),
-                    success: function (data) {
-                        var messageAlert = 'alert-' + data.type;
-                        var messageText = data.message;
-                        if (messageText.startsWith("error")) {
-                            alert(messageText);
-                            return;
-                        }
-                        var newComment = `<div class="comment container">
+{% if request.user.is_authenticated %}
+<script>
+    {% if not flag %}
+    //alert('Niste lajkovali ovaj post!');
+    $('#likeImg').one('click', function (event) {
+        event.preventDefault();
+        var url = "{% url 'like' post.id %}";
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+        // AJAX da se doda lajk u bazu
+        // jos uvek moze vise puta da se lajkuje
+        $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': token
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: url,
+            success: function (data) {
+                //alert(data.message);
+                if (data.message == "success") {
+                    $('#likeImg').attr("src", "{% static 'img/likeImgRed.png' %}");
+                    var count = $('#likesCount').html().split(' ')[0];
+                    count++;
+                    $('#likesCount').html(count + ' Likes');
+                }
+            }
+        });
+    }); 
+    {% endif %}
+</script>
+
+<script>
+    $('#commentForm').on('submit', function (e) {
+        e.preventDefault();
+        var url = "{% url 'comment' post.id %}";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $(this).serialize(),
+            success: function (data) {
+                var messageAlert = 'alert-' + data.type;
+                var messageText = data.message;
+                if (messageText.startsWith("error")) {
+                    alert(messageText);
+                    return;
+                }
+                var newComment =
+                    `<div class="comment container">
                                             <div class="user text-center">
                                                 <a href="{% url 'user' request.user.id %}"><img src="{{ baseUrl }}/{{ request.user.userdetails.image }}" class="img-circle" alt="img"></a>
                                                 <a href="{% url 'user' request.user.id %}"><p>{{ request.user.username }}</p></a>
@@ -121,14 +134,15 @@
                                                 <p>` + messageText + `</p>
                                             </div>
                                         </div>`;
-                        $(newComment).hide().appendTo('#comments').fadeIn(1000);
-                        var c = $('#commentsCount').html().split(" ")[0];
-                        c++;
-                        $('#commentsCount').html(c + " Comments");
-                        $('#commentForm')[0].reset();
-                    }
-                });
-            });
-    </script>
-    {% endif %}
+                $(newComment).hide().appendTo('#comments').fadeIn(1000);
+                var c = $('#commentsCount').html().split(" ")[0];
+                c++;
+                $('#commentsCount').html(c + " Comments");
+                $('#commentForm')[0].reset();
+            }
+        });
+    });
+</script>
+{% endif %} 
+
 {% endblock content%}

@@ -1,19 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{% load static %}
-{% static "" as baseUrl %}
+{% load static %} 
+{% static "" as baseUrl %} 
 
 {% block content %}
 
-    <div id="users-container" class="container">
-        <div class="row">
-            {% for user in users %}
-            <div class="col-sm-2 text-center">
-                <a href="{% url 'user' user.pk %}"><img id="user-img" src="{{ baseUrl }}/{{ user.userdetails.image }}" class="img-circle" alt="img"></a><br>
-                <a href="{% url 'user' user.pk %}"><p style="color: black;">{{ user.username }}</p></a>
-            </div>
-            {% endfor %}
+<div id="users-container" class="container">
+    <div class="row">
+        {% for user in users %}
+        <div class="col-sm-2 text-center">
+            <a href="{% url 'user' user.pk %}">
+                <img id="user-img" src="{{ baseUrl }}/{{ user.userdetails.image }}" class="img-circle" alt="img">
+            </a>
+            <br>
+            <a href="{% url 'user' user.pk %}">
+                <p style="color: black;">{{ user.username }}</p>
+            </a>
         </div>
+        {% endfor %}
     </div>
+</div>
 
 {% endblock content %}

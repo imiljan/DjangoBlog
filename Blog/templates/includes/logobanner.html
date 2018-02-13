@@ -1,17 +1,17 @@
-    {% load static %}
-    <div id="row1" class="row text-center ">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8" style="padding-bottom: 5em;">
-            {% if messages %}
-                {% for message in messages %}
+ {% load static %}
+<div id="row1" class="row text-center ">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8" style="padding-bottom: 5em;">
+        {% if messages %} 
+            {% for message in messages %}
                 <h2>{{ message }}</h2>
-                {% endfor %}
-            {% else %}
-                <h2>Welcome back!</h2>
-            {% endif %}
-            <img src="{% static 'img/logo.svg' %}" alt="LOGO" style="height: 60%; width: 60%;">
-            <p>This blog was developed in Django that is a Python framework.</p>
-            <p>We hope you will enjoy it.</p>
-        </div>
-        <div class="col-sm-2"></div>
+            {% endfor %} 
+        {% else %}
+            <h2>Welcome back!</h2>
+        {% endif %}
+        <img src="{% static 'img/logo.svg' %}" alt="LOGO" style="height: 60%; width: 60%;">
+        <p>This blog was developed in Django that is a Python framework.</p>
+        <p>We hope you will enjoy it.</p>
     </div>
+    <div class="col-sm-2"></div>
+</div>

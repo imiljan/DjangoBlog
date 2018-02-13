@@ -15,11 +15,13 @@
                     <div class="modal-body">
 
                         {% if messages %}
-                        <input id="message" type="hidden" value="true">
-                        {% for message in messages %}
-                            <p class="sessionFlash">{{ message }}</p>
-                        {% endfor %} {% else %}
-                        <input id="message" type="hidden" value="false"> {% endif %}
+                            <input id="message" type="hidden" value="true"> 
+                            {% for message in messages %}
+                                <p class="sessionFlash">{{ message }}</p>
+                            {% endfor %} 
+                        {% else %}
+                            <input id="message" type="hidden" value="false"> 
+                        {% endif %}
 
 
                         <p class="labelCustom">Username:</p>
