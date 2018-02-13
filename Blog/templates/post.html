@@ -14,7 +14,7 @@
             <a href="{% url 'user' user.pk %}"><span>{{ user.username }}</span></a>
         </div>
         <br>
-        <div class="post-text">{{ post.body }}</div>
+        <div class="post-text">{{ post.body|linebreaks }}</div>
         <div id="stats" class="container">
             <p class="pull-left">
                 <strong>{{ post.views }} Views</strong>
@@ -44,7 +44,7 @@
                     <a href="{% url 'user' comment.user_id.id %}"><img src="{{ baseUrl }}/{{ comment.user_id.userdetails.image }}" class="img-circle" alt="img"></a>
                     <a href="{% url 'user' comment.user_id.id %}"><p>{{ comment.user_id.username }}</p></a>
                 </div>
-                <div class="comment-text">{{ comment.body }}</div>
+                <div class="comment-text">{{ comment.body|linebreaks }}</div>
             </div>
             {% endfor %}
         </div>

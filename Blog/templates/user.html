@@ -23,7 +23,7 @@
                 <div class="">
                     <h2 style="color: black;">{{ user.first_name }}&nbsp{{ user.last_name }}</h2>
                     <p style="color: black;">
-                        {{ user.userdetails.bio }}
+                        {{ user.userdetails.bio|linebreaks }}
                     </p>
                     <p style="color: green;">{{ user.email }}</p>
                 </div>
