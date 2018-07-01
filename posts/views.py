@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, F, Count
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -13,7 +13,8 @@ from users.forms import SignInForm, SignUpForm
 
 def index(request):
     title = 'Home'
-    p = Post.objects.filter(deleted=False).order_by('created_at').reverse()
+    # p = Post.objects.filter(deleted=False).order_by('created_at').reverse()
+    p = Post.objects.filter(deleted=False).order_by('-created_at')  # - <==> desc()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -29,9 +30,14 @@ def index(request):
 
 
 def post(request, pk):
-    p = get_object_or_404(Post, pk=pk, deleted=False)
-    p.views += 1
-    p.save()
+    qp = Post.objects.annotate(Count('comment')).filter(pk=pk)  # umesto onih glupih property-a
+    qp.update(views=F('views') + 1)  # u sustini isto ko dole, ali ovo moze da se koristi za update kad nema get-a za jedan upit bazi
+    p = qp.get()
+    print(p)
+    print(p.comment__count)
+    # p = get_object_or_404(Post, pk=pk, deleted=False)
+    # p.views += 1
+    # p.save()
     comments = Comment.objects.filter(post_id=pk).order_by('id')
     user = User.objects.get(pk=p.user_id.id)
     flag = False
@@ -59,7 +65,7 @@ def like(request, pk):
     if request.method == 'POST':
         Like.objects.create(user_id=request.user, post_id=Post.objects.get(pk=pk))
         p = Post.objects.get(pk=pk)
-        p.likes += 1
+        p.likes = F('likes') + 1
         p.save()
         return JsonResponse({'message': 'success'})
     else:
